@@ -1,5 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+} from "firebase/firestore/lite";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCwR2arV8n-WioNfi5jO1OLaEdqueW30-Q",
@@ -19,4 +24,12 @@ export const getProducts = async () => {
   const productsSnapshot = await getDocs(productsCol);
   const productsList = productsSnapshot.docs.map((doc) => doc.data());
   return productsList;
+};
+
+export const uploadFile = async (file) => {
+  const fileCol = collection(db, "files");
+  const productsSnapshot = await addDoc(fileCol, {
+    url: file,
+  });
+  return productsSnapshot;
 };
